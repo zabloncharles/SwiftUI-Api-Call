@@ -35,66 +35,80 @@ class Api {
 
 //MARK: VIEW
 struct ContentView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State var posts: [Post] = []
-    var pics = ["cover1", "cover2", "cover3", "cover4", "cover5", "cover6"]
+    var pics = ["image_01", "image_02", "image_03", "image_04", "image_05", "image_06"]
     var columns: [GridItem] =
     [.init(.adaptive(minimum: 200, maximum: 200))]
     
     var body: some View {
         
         ZStack {
-            Color.offWhite.edgesIgnoringSafeArea(.all)
-            ScrollView {
-                
-                LazyVGrid(columns: columns) {
-                    ForEach(posts, id: \.date) { post in
-                        
-                        
-                        
-                        VStack(alignment: .leading, spacing: 3) {
+            NavigationView {
+                ScrollView {
+                    
+                    LazyVGrid(columns: columns) {
+                        ForEach(posts, id: \.date) { post in
                             
                             
-                            RoundedRectangle(cornerRadius: 20)
-                                .fill(.clear)
-                                .background(
-                                    Image(pics.randomElement() ?? "ob1")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                    
-                                )
+                            
+                            VStack(alignment: .leading, spacing: 3) {
+                                
+                                
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(.clear)
+                                    .background(
+                                        Image(pics.randomElement() ?? "ob1")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                         
+                                        
+                                    )
+                                   
+                                
+                                    .shadow(color:  Color("black").opacity(0.6), radius: 10, x: 10, y: 10 )
+                                    .shadow(color: Color("white").opacity(0.9),radius: 10, x: -5, y: -5)
+                                    .cornerRadius(15)
+                                    .background(
+                                        Rectangle()
+                                            .fill(Color("white"))
+                                            .cornerRadius(15)
+                                            .padding(-0.2)
+                                            
+                                        
+                                    )
+                                    .padding(-5)
+                                
+                                Spacer()
+                                
+                                Text(post.date)
+                                    .font(.callout)
+                                    .foregroundColor(.gray)
+                                    .lineLimit(1)
+                                
+                                Text(post.name)
+                                    .font(.headline)
+                                    .foregroundColor(Color("white"))
+                            }
+                            .padding()
+                            .background(Color("black"))
+                            .frame(width: 190, height: 300)
+                            .cornerRadius(15)
+                            .shadow(color: Color("black").opacity(colorScheme == .dark ? 0.0 : 0.3), radius: 10, x: 10, y: 10 )
+                            .shadow(color: Color("white").opacity(0.9),radius: 10, x: -5, y: -5)
+                            .padding()
                             
                             
-                                .shadow(color:  Color("black").opacity(0.2), radius: 10, x: 10, y: 10 )
-                                .shadow(color: Color("white").opacity(0.9),radius: 10, x: -5, y: -5)
-                            
-                                .cornerRadius(15)
-                                .padding(-5)
-                            
-                            Spacer()
-                            
-                            Text(post.date)
-                                .customfontFunc(customFont: "sanfrancisco", style: .caption1)
-                                .foregroundColor(.secondary)
-                                .lineLimit(1)
-                            
-                            Text(post.name)
-                                .customfontFunc(customFont: "sanfrancisco", style: .callout)
                         }
-                        .padding()
-                        .background(Color.offWhite)
-                        .scaleEffect( 1 )
-                        .frame(width: 190, height: 300)
-                        .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 15)
-                        .padding()
-                        
-                        
-                    }
-                }.padding(10)
+                    }.padding(10)
+                    
+                }.navigationBarTitle("Holidays")
                 
-            } .onAppear {
-                Api().getPosts { (posts) in
-                    self.posts = posts
-                }
+                .onAppear {
+                    Api().getPosts { (posts) in
+                        self.posts = posts
+                    }
+            }
             }
             
         }
@@ -104,5 +118,6 @@ struct ContentView: View {
 struct ContentViewProvider_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .preferredColorScheme(.dark)
     }
 }
