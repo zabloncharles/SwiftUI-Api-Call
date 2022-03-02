@@ -5,7 +5,13 @@ DIRECTIONS:
 
 Open the swift file in xcode to preview the api call and replicate it to your liking.
 
-<img width="938" alt="Screen Shot 2022-03-02 at 10 39 56 AM" src="https://user-images.githubusercontent.com/74889517/156395145-1cdc2292-3c3a-42ff-875b-1b605eca4cd6.png">
-This preview is using holiday data to populate the view with a costume struct for displaying each cardview.
+LightMode
+<img width="938" alt="LightMode" src="https://user-images.githubusercontent.com/74889517/156400705-5a10c3d9-263d-4194-b047-fa45fc99990e.png">
 
+DarkMode
+<img width="938" alt="darkmode" src="https://user-images.githubusercontent.com/74889517/156400301-d5f00b0e-87b3-437d-b44d-2c72b5018496.png">
+
+
+This preview is using holiday data to populate the view with a costume struct for displaying each cardview.
+The specific data shown in this preview is using country code AT data and not US data and is in Json format.
 Sources: https://date.nager.at/api/v3/PublicHolidays/2022/AT
